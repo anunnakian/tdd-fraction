@@ -25,16 +25,30 @@ public class Fraction {
         return denominator;
     }
 
+    private Fraction normalize(int factor) {
+        return Fraction.of(this.numerator * factor, this.denominator * factor);
+    }
+
+    private Fraction simplify() {
+        var divisor = gcd(this.numerator, this.denominator);
+        return Fraction.of(this.numerator / divisor, this.denominator / divisor);
+    }
+
     public Fraction add(Fraction fraction) {
-        var denominator = 0;
-        if (fraction.denominator == this.denominator || fraction.denominator == 0) {
-            denominator = this.denominator;
+        Fraction result;
+        if (haveSameDenominator(fraction)) {
+            result = Fraction.of(
+                    numerator + fraction.numerator,
+                    denominator);
+            return result.simplify();
+        } else {
+            Fraction a = this.normalize(fraction.getDenominator());
+            Fraction b = fraction.normalize(this.denominator);
+            return a.add(b);
         }
-        if (this.denominator == 0) {
-            denominator = fraction.denominator;
-        }
-        return Fraction.of(
-                numerator + fraction.numerator,
-                denominator);
+    }
+
+    private boolean haveSameDenominator(Fraction fraction) {
+        return fraction.denominator == this.denominator;
     }
 }
