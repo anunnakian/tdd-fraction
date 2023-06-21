@@ -14,4 +14,14 @@ class FractionTest {
         Assertions.assertEquals(7, result.getNumerator());
         Assertions.assertEquals(1, result.getDenominator());
     }
+
+    @Test
+    void test_add_zero() {
+        Fraction fraction = Fraction.of(3, 1);
+
+        Fraction result = fraction.add(Fraction.of(0, 0));
+
+        Assertions.assertEquals(3, result.getNumerator());
+        Assertions.assertEquals(1, result.getDenominator());
+    }
 }

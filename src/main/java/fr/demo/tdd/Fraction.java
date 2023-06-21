@@ -27,8 +27,11 @@ public class Fraction {
 
     public Fraction add(Fraction fraction) {
         var denominator = 0;
-        if (fraction.denominator == this.denominator) {
+        if (fraction.denominator == this.denominator || fraction.denominator == 0) {
             denominator = this.denominator;
+        }
+        if (this.denominator == 0) {
+            denominator = fraction.denominator;
         }
         return Fraction.of(
                 numerator + fraction.numerator,
